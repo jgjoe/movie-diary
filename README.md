@@ -64,7 +64,7 @@ TMDB 응답에는 포스터·줄거리·OTT 정보가 빠진 항목이 섞여 �
 | 배포 | 백엔드 Google Cloud Run · 프론트 GitHub Pages |
 | 자동화 | GitHub Actions (프론트 자동 배포) |
 
-## 실행 방법
+## 실행
 
 `.env`에 API 키가 필요합니다.
 
