@@ -2,7 +2,7 @@
 
 **일기를 쓰면 감정을 분석해 지금 볼 만한 영화를 골라주는 서비스 — 상시 서버 비용 없이 운영합니다**
 
-[![Live](https://img.shields.io/badge/live-GitHub%20Pages-success)](https://jgjoe.github.io/movie_diary/)
+[![Live](https://img.shields.io/badge/live-GitHub%20Pages-success)](https://jgjoe.github.io/movie-diary/)
 [![Backend](https://img.shields.io/badge/backend-Cloud%20Run%20(scale--to--zero)-4285F4?logo=googlecloud&logoColor=white)](#설계-판단)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows)
 
