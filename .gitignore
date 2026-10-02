@@ -37,3 +37,6 @@ ehthumbs.db
 # Other
 *.swp
 *.swo
+
+# local agent instructions
+AGENTS.md

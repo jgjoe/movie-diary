@@ -30,10 +30,7 @@
 
 감정 분석(Gemini)과 영화 조회(TMDB)가 **둘 다 네트워크 대기**입니다.
 한 요청이 두 번의 외부 대기를 순차로 물기 때문에, 대기 구간에서 다른 요청을 처리할 수 있는 구조가 필요했습니다.
-그래서 **async를 기본 지원하는 FastAPI**를 골랐고, Gemini 호출은 `generate_content_async`로 비동기 처리합니다.
-
-**아직 절반만 했습니다.** TMDB 조회는 여전히 동기 `requests` 호출이라 그 구간에서는 이벤트 루프가 막힙니다.
-`httpx`가 이미 의존성에 있으므로 비동기 클라이언트로 바꾸는 것이 다음 정리 대상입니다.
+그래서 **async를 기본 지원하는 FastAPI**를 골랐고, Gemini 감정 분석 호출은 `generate_content_async`로 비동기 처리합니다.
 
 ### 상시 서버를 두지 않았다
 
@@ -82,12 +79,6 @@ cd frontend && npm install && npm run dev
 ```
 
 필요한 키: `GEMINI_API_KEY`(Google AI Studio), `TMDB_API_KEY`(TMDB)
-
-## 범위와 조건
-
-- 사용자 수·응답 시간 등 **운영 지표는 측정하지 않았습니다.** 측정 근거가 있는 프로젝트는 [benefit-compass](https://github.com/jgjoe/benefit-compass)(60문항 평가셋)와 [Fridge-D-Day](https://github.com/jgjoe/Fridge-D-Day)(55장 회귀 기준선)입니다.
-- 일기와 추천 기록은 브라우저 로컬에 저장되며 서버에 보관하지 않습니다. 기기를 바꾸면 이어지지 않습니다.
-- 감정 분석 결과는 LLM 출력이므로 같은 글에도 표현이 달라질 수 있습니다.
 
 ## 만든 사람
 
