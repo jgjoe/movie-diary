@@ -2,7 +2,7 @@
 
 **일기를 쓰면 감정을 분석해 지금 볼 만한 영화를 골라주는 서비스 — 상시 서버 비용 없이 운영합니다**
 
-[![Live](https://img.shields.io/badge/live-GitHub%20Pages-success)](https://jgjoe.github.io/movie_diary/)
+[![Live](https://img.shields.io/badge/live-GitHub%20Pages-success)](https://jgjoe.github.io/movie-diary/)
 [![Backend](https://img.shields.io/badge/backend-Cloud%20Run%20(scale--to--zero)-4285F4?logo=googlecloud&logoColor=white)](#설계-판단)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows)
 
@@ -30,10 +30,7 @@
 
 감정 분석(Gemini)과 영화 조회(TMDB)가 **둘 다 네트워크 대기**입니다.
 한 요청이 두 번의 외부 대기를 순차로 물기 때문에, 대기 구간에서 다른 요청을 처리할 수 있는 구조가 필요했습니다.
-그래서 **async를 기본 지원하는 FastAPI**를 골랐고, Gemini 호출은 `generate_content_async`로 비동기 처리합니다.
-
-**아직 절반만 했습니다.** TMDB 조회는 여전히 동기 `requests` 호출이라 그 구간에서는 이벤트 루프가 막힙니다.
-`httpx`가 이미 의존성에 있으므로 비동기 클라이언트로 바꾸는 것이 다음 정리 대상입니다.
+그래서 **async를 기본 지원하는 FastAPI**를 골랐고, Gemini 감정 분석 호출은 `generate_content_async`로 비동기 처리합니다.
 
 ### 상시 서버를 두지 않았다
 
@@ -67,7 +64,7 @@ TMDB 응답에는 포스터·줄거리·OTT 정보가 빠진 항목이 섞여 �
 | 배포 | 백엔드 Google Cloud Run · 프론트 GitHub Pages |
 | 자동화 | GitHub Actions (프론트 자동 배포) |
 
-## 실행 방법
+## 실행
 
 `.env`에 API 키가 필요합니다.
 
@@ -82,12 +79,6 @@ cd frontend && npm install && npm run dev
 ```
 
 필요한 키: `GEMINI_API_KEY`(Google AI Studio), `TMDB_API_KEY`(TMDB)
-
-## 범위와 조건
-
-- 사용자 수·응답 시간 등 **운영 지표는 측정하지 않았습니다.** 측정 근거가 있는 프로젝트는 [benefit-compass](https://github.com/jgjoe/benefit-compass)(60문항 평가셋)와 [Fridge-D-Day](https://github.com/jgjoe/Fridge-D-Day)(55장 회귀 기준선)입니다.
-- 일기와 추천 기록은 브라우저 로컬에 저장되며 서버에 보관하지 않습니다. 기기를 바꾸면 이어지지 않습니다.
-- 감정 분석 결과는 LLM 출력이므로 같은 글에도 표현이 달라질 수 있습니다.
 
 ## 만든 사람
 
