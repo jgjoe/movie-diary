@@ -62,7 +62,7 @@ TMDB 응답에는 포스터·줄거리·OTT 정보가 빠진 항목이 섞여 �
 | AI | Google Gemini (사용 가능 모델 자동 선택) |
 | 데이터 | TMDB API |
 | 배포 | 백엔드 Google Cloud Run · 프론트 GitHub Pages |
-| 자동화 | GitHub Actions (프론트 자동 배포) |
+| 자동화 | GitHub Actions (PR·`main` 푸시마다 프론트 lint·build와 백엔드 pytest, 프론트 자동 배포) |
 
 ## 실행
 
@@ -77,6 +77,14 @@ cd backend && pip install -r requirements.txt && uvicorn main:app --reload
 # 프론트
 cd frontend && npm install && npm run dev
 ```
+
+```bash
+# 검증 (API 키 없이 실행)
+cd backend && pytest -q
+```
+
+백엔드 테스트 6건은 Gemini·TMDB 호출을 대체해 추천·검색·상세 조회의 정상 응답과 빈 일기·빈 검색어·없는 영화의 처리를 확인합니다.
+PR과 `main` 푸시마다 GitHub Actions가 이 테스트와 프론트 lint·build를 실행합니다.
 
 필요한 키: `GEMINI_API_KEY`(Google AI Studio), `TMDB_API_KEY`(TMDB)
 
